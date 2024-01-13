@@ -1,0 +1,9 @@
+{% block header %}
+{% if user is null %}
+    <img src="{{ asset('images/nonAuthentifie.png') }}"
+{% elseif user.isIsAdmin() %}
+    <img src="{{ asset('images/admin.png') }}"
+{% else %}
+    <img src="{{ asset('images/authentifie.png') }}"
+{% endif %}
+{% endblock %}

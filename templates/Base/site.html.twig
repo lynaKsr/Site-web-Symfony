@@ -1,0 +1,30 @@
+{# template du deuxieme niveau spécifique a mon site de vente #}
+{% extends 'Base/general.html.twig' %}
+
+{% block title %} Vente de livres {% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" media="screen" type="text/css" title="site" href="{{ asset('css/site.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div id="titre">
+        <h1>{% block titre_principal %}Vente de livres{% endblock %}</h1>
+    </div>
+
+    <div id="header">
+        {% include 'Base/header.html.twig'%}
+    </div>
+
+    <div id="menu">
+       {% include 'Base/menu.html.twig' %}
+    </div>
+
+    <div id="vue">
+        {% block vue %}{% endblock %}
+    </div>
+    <div id="footer">
+        {% include 'Base/footer.html.twig' %}
+    </div>
+{% endblock %}

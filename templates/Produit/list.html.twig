@@ -1,0 +1,49 @@
+{% extends 'Base/site.html.twig' %}
+
+{% block title %}{{ parent() }} : produits{% endblock %}
+
+{% block titre_principal %}{{ parent() }} : liste des produits (livres) {% endblock %}
+
+{% block body %}
+
+    {% block vue %}
+        {% if produits|length == 0 %}
+            <p> Aucun livre dans la base de données </p>
+        {% else %}
+                <table>
+                    <tr>
+                        <th> libelle  </th><th></th>
+                        <th> Prix     </th><th></th>
+                        <th> Quantite </th><th></th>
+                        <th> Choix    </th>
+                        <th> Action </th>
+                    </tr>
+                    {% for produit in produits %}
+                        {% set retourPanier = path('produit_list') %}
+                            <tr>
+                                <td>{{ produit.libelle }}     </td><td></td>
+                                <td>{{ produit.prixUnitaire }}</td><td></td>
+                                <td>{{ produit.quantiteStock }}    </td><td></td>
+                                <td> {{ form_start(forms[produit.id],{'action' : path('produit_list')}) }}
+                                    {{ form_row(forms[produit.id]) }}
+                                </td>
+                                <td>
+                                    {{ form_rest(forms[produit.id]) }}
+                                    {{ form_end(forms[produit.id]) }}
+                                </td>
+
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <td>
+                                        <form action= {{ retourPanier }} >
+                                            <input type="submit" value="Commander">
+                                        </form>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        {% endif %}
+
+    {% endblock %}
+{% endblock %}

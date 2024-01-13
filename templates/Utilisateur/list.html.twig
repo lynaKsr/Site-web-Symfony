@@ -1,0 +1,35 @@
+{% extends 'Base/site.html.twig' %}
+
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+    {% block vue %}
+        <h1> Liste des utilisateurs </h1>
+        <table>
+            <tr>
+                <th>Login</th>
+                <th>Mot de passe</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date de naissance</th>
+                <th>Statut</th>
+                <th>Action</th>
+            </tr>
+            {% for utilisateur in utilisateurs %}
+            <tr>
+                <td>{{ utilisateur.login }}</td>
+                <td>{{ utilisateur.password }}</td>
+                <td>{{ utilisateur.nom }}</td>
+                <td>{{ utilisateur.prenom }}</td>
+                <td>{{ utilisateur.getDateDeNaissance() ? utilisateur.dateDeNaissance | date('d/m/y') : 'date absente' }}</td>
+                <td>{{ utilisateur.isIsAdmin() ? 'Administrateur' : is_granted('ROLE_SADMIN') ? 'Super administrateur' : 'Client' }}</td>
+                {% if not(is_granted('ROLE_SADMIN') or utilisateurNow.id == utilisateur.id) %}
+                    <td>
+                        <a href="{{ path('utilisateur_supprimer', {'id': utilisateur.id}) }}">Supprimer</>
+                    </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    {% endblock %}
+{% endblock %}

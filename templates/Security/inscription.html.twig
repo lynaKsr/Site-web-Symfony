@@ -1,0 +1,22 @@
+{% extends 'Base/site.html.twig' %}
+
+{% block title %} Inscription : {% endblock %}
+
+{% block body %}
+  {% block vue %}
+
+    <h2> Formulaire d'inscription : </h2>
+
+    {{ form_start(formInscription) }}
+    {{ form_errors(formInscription) }}
+
+    {{ form_rest(formInscription) }}
+
+    {{ form_end(formInscription) }}
+
+    <p><a href="{{ path("accueil_index") }}">retour à la page d'accueil</a></p>
+
+
+  {% endblock %}
+
+{% endblock %}

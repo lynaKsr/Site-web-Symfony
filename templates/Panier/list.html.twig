@@ -1,0 +1,37 @@
+{% extends 'Base/site.html.twig' %}
+
+{% block title %} Panier {% endblock %}
+
+{% block vue %}
+    <h2> Contenu de votre panier </h2>
+    <table>
+        <tr>
+            <th>Libellé</th>
+            <th>Prix u.</th>
+            <th>Quantité</th>
+            <th>Prix total</th>
+            <th>Action</th>
+        </tr>
+        {% for panierLivre in panierLivres %}
+            {% set prixTotal = prixTotal + panierLivre.produit.prix * panierLivre.quantite %}
+            {% set quantiteTotale = quantiteTotale + panierLivre.quantite %}
+            <tr>
+                <td>{{ panierLivre.produit.libelle }}</td>
+                <td>{{ panierLivre.produit.prixUnitaire }}</td>
+                <td>{{ panierLivre.quantite }}</td>
+                <td>
+                    <form action="{{ path('panier_supprimer', {'id' : panierLivre.produit.id}) }}"></form>
+                    <input type="submit" value="Supprimer">
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td>Total</td>
+            <td></td>
+            <td>{{ quantiteTotale }}</td>
+            <td>{{ prixTotal }}</td>
+        </tr>
+    </table>
+    <form action="{{ path('panier_vider') }}"></form>
+    <input type="submit" value="Vider">
+{% endblock %}

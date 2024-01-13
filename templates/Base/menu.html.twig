@@ -1,0 +1,34 @@
+{% block title %} Menu : {% endblock %}
+{% block vue %}
+    <ul>
+        {% if user is null %}
+            <li><a href="{{ path('security_login') }}">Connexion</a></li>
+            <li><a href="{{ path('security_inscription') }}">Inscription</a></li>
+                <li><a href="{{ path('accueil_index') }}">Retour a la page d'accueil</a></li>
+        {% else %}
+        {% if user.IsisAdmin() %}
+            <li><a href="{{ path('utilisateur_list') }}">Liste des utilisateurs</a></li>
+            <li><a href="{{ path('produit_add') }}">ajouter un nouveau produit</a></li>
+            <li><a href="{{ path('utilisateur_editer', {'id' : user.id}) }}">editer/modifier mon profil</a></li>
+            <li><a href="{{ path('produit_list') }}">liste des livres disponibles</a></li>
+            <li><a href="{{ path('panier') }}">gérer mon panier</a></li>
+            <li><a href="{{ path('accueil_index') }}">retour à la page d'accueil</a></li>
+            <li><a href="{{ path('security_logout') }}">Déconnexion</a></li>
+                <li><a href="https://fr.wikipedia.org/wiki/The_Truman_Show">Lien vers l exterieur</a></li>
+            {# lien vers site exterieur #}
+
+        {% elseif is_granted('ROLE_SADMIN')  %}
+            <li><a href="{{ path('security_logout') }}">Déconnexion</a></li>
+            <li><a href="{{ path('accueil_index') }}">page d'accueil</a></li>
+            <li><a href="{{ path('utilisateur_editer', {'id' : user.id}) }}">editer/modifier mon profil</a></li>
+            {# creer un admin  #}
+        {% else %}
+            <li><a href="{{ path('security_logout') }}">Déconnexion</a></li>
+            <li><a href="{{ path('accueil_index') }}">retour à la page d'accueil</a></li>
+            <li><a href="{{ path('utilisateur_editer', {'id' : user.id}) }}">editer/modifier mon profil</a></li>
+            <li><a href="{{ path('produit_list') }}">liste des livres disponibles</a></li>
+            <li><a href="{{ path('panier') }}">gérer mon panier</a></li>
+        {% endif %}
+        {% endif %}
+    </ul>
+{% endblock %}

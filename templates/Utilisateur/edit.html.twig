@@ -1,0 +1,15 @@
+{% extends 'Base/site.html.twig' %}
+
+{% block title %} modifier mon profil {% endblock %}
+
+{% block body %}
+    {% block vue %}
+        <h2>Mon profil</h2>
+
+        {{ form_start(EditionForm) }}
+        {{ form_rest(EditionForm) }}
+        {{ form_end(EditionForm) }}
+
+        <a href="{{ path("accueil_index") }}">retour à l'accueil</a>
+    {% endblock %}
+{% endblock %}

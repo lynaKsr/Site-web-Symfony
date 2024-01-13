@@ -1,0 +1,17 @@
+{% extends 'Base/site.html.twig' %}
+
+{% block title %}Bienvenue ! {% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" media="screen" type="text/css" title="index" href="{{ asset('css/Accueil/index.css') }}" />
+{% endblock %}
+
+{% block vue %}
+    {% if user is null %}
+        <h1>Bonjour inconnu ?</h1>
+        <p>Vous etes la en tant que visiteur anonyme</p>
+    {% else %}
+        <h1>Bonjour {{ user.login }}</h1>
+    {% endif %}
+{% endblock %}
